@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nashik Civic AI | Smart Civic Issue Reporting</title>
+
+<style>
+:root{
+    --primary:#14532d;
+    --primary2:#16a34a;
+    --accent:#f59e0b;
+    --blue:#2563eb;
+    --red:#dc2626;
+    --bg:#f5f7f5;
+    --card:#ffffff;
+    --text:#17201a;
+    --muted:#667085;
+    --border:#e5e7eb;
+    --shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* NAVBAR */
+
+.navbar{
+    background: linear-gradient(135deg,#064e3b,#166534);
+    color: white;
+    padding:15px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    position: sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 15px rgba(0,0,0,.15);
+}
+
+.logo{
+    display:flex;
+    align-items: center;
+    gap:12px;
+}
+
+.logo-icon{
+    width:45px;
+    height:45px;
+    background:#fbbf24;
+    color:#14532d;
+    border-radius:50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size:23px;
+    font-weight: bold;
+}
+
+.logo h2{
+    font-size:20px;
+}
+
+.logo span{
+    display: block;
+    font-size:11px;
+    opacity:.8;
+}
+
+.nav-links{
+    display: flex;
+    gap:25px;
+    align-items: center;
+}
+
+.nav-links a{
+    color: white;
+    text-decoration: none;
+    font-size:14px;
+    font-weight:500;
+}
+
+.nav-links a:hover{
+    color:#fbbf24;
+}
+
+.login-btn{
+    background:#fbbf24;
+    color:#14532d!important;
+    padding:9px 17px;
+    border-radius:20px;
+}
+
+/* HERO */
+
+.hero{
+    min-height:500px;
+    background:
+      linear-gradient(90deg,rgba(4,78,59,.94),rgba(4,78,59,.68)),
+      linear-gradient(135deg,#166534,#0f766e);
+    color: white;
+    padding:80px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:50px;
+}
+
+.hero-content{
+    max-width:650px;
+}
+
+.hero h1{
+    font-size:52px;
+    line-height:1.08;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#fbbf24;
+}
+
+.hero p{
+    font-size:18px;
+    line-height:1.7;
+    color:#e5f5ea;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display: flex;
+    gap:15px;
+}
+
+.btn{
+    border: none;
+    cursor: pointer;
+    padding:13px 22px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:14px;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn-primary{
+    background:#fbbf24;
+    color:#14532d;
+}
+
+.btn-outline{
+    background: transparent;
+    color: white;
+    border:1px solid rgba(255,255,255,.5);
+}
+
+.hero-card{
+    width:340px;
+    backgrounder(255,255,255,.1);
+    backdrop-filter: blur(15px);
+    padding:25px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.2);
+}
+
+.hero-card h3{
+    margin-bottom:20px;
+}
+
+.mini-stat{
+    display: flex;
+    justify-content: space-between;
+    padding:13px 0;
+    border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.mini-stat strong{
+    color:#fbbf24;
+}
+
+/* GENERAL */
+
+.section{
+    padding:70px 7%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.section-title p{
+    color:var(--muted);
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-top:-45px;
+    position:relative;
+    z-index:5;
+}
+
+.stat-card{
+    background:white;
+    padding:25px;
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    text-align:center;
+}
+
+.stat-icon{
+    font-size:28px;
+    margin-bottom:10px;
+}
+
+.stat-card h3{
+    font-size:30px;
+    color:var(--primary);
+}
+
+.stat-card p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* REPORT */
+
+.report-container{
+    max-width:950px;
+    margin:auto;
+    background:white;
+    padding:35px;
+    border-radius:18px;
+    box-shadow:var(--shadow);
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+label{
+    font-size:13px;
+    font-weight:600;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px 13px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    outline:none;
+    background:#fff;
+    font-size:14px;
+}
+
+input:focus,select:focus,textarea:focus{
+    border-color:var(--primary2);
+    box-shadow:0 0 0 3px rgba(22,163,74,.1);
+}
+
+textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.file-box{
+    border:2px dashed #cbd5d1;
+    padding:25px;
+    border-radius:10px;
+    text-align:center;
+    color:var(--muted);
+}
+
+.preview{
+    max-width:150px;
+    max-height:120px;
+    margin:10px auto;
+    display:none;
+    border-radius:8px;
+}
+
+.ai-result{
+    display:none;
+    background:#ecfdf5;
+    border:1px solid #a7f3d0;
+    padding:18px;
+    border-radius:10px;
+    margin-top:20px;
+}
+
+.ai-result strong{
+    color:#047857;
+}
+
+/* ISSUE DASHBOARD */
+
+.dashboard{
+    background:#eef4ef;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:25px;
+}
+
+.filters{
+    background:white;
+    padding:22px;
+    border-radius:15px;
+    height:max-content;
+    box-shadow:var(--shadow);
+}
+
+.filters h3{
+    margin-bottom:20px;
+}
+
+.filter-item{
+    margin-bottom:15px;
+}
+
+.issue-list{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.issue-card{
+    background:white;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:var(--shadow);
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:20px;
+}
+
+.issue-top{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+}
+
+.category{
+    background:#dcfce7;
+    color:#166534;
+    padding:5px 9px;
+    border-radius:15px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.priority{
+    padding:5px 9px;
+    border-radius:15px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.high{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.medium{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.low{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.issue-card h3{
+    margin-bottom:7px;
+}
+
+.issue-card p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.5;
+}
+
+.issue-meta{
+    margin-top:12px;
+    color:#777;
+    font-size:12px;
+}
+
+.issue-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    align-items:center;
+}
+
+.vote-btn{
+    border:1px solid var(--border);
+    background:white;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.status{
+    font-size:11px;
+    font-weight:bold;
+    padding:6px 9px;
+    border-radius:12px;
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.resolved{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.inprogress{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+/* HOW IT WORKS */
+
+.steps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.step{
+    text-align:center;
+    background:white;
+    padding:30px 20px;
+    border-radius:15px;
+    box-shadow:var(--shadow);
+}
+
+.step-number{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:#dcfce7;
+    color:#166534;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto 15px;
+    font-weight:bold;
+    font-size:20px;
+}
+
+.step p{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:8px;
+    line-height:1.5;
+}
+
+/* AI */
+
+.ai-section{
+    background:#052e16;
+    color:white;
+}
+
+.ai-container{
+    max-width:900px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:35px;
+    align-items:center;
+}
+
+.ai-container p{
+    color:#c9ddd0;
+    line-height:1.7;
+}
+
+.ai-features{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:20px;
+}
+
+.ai-feature{
+    background:rgba(255,255,255,.07);
+    padding:15px;
+    border-radius:9px;
+}
+
+.chat-box{
+    background:white;
+    color:#222;
+    border-radius:15px;
+    padding:20px;
+}
+
+.chat-message{
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+    font-size:13px;
+}
+
+.bot{
+    background:#ecfdf5;
+}
+
+.user{
+    background:#f3f4f6;
+    text-align:right;
+}
+
+/* FOOTER */
+
+footer{
+    background:#031f10;
+    color:white;
+    padding:40px 7%;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:40px;
+}
+
+footer p, footer li{
+    color:#9bb3a4;
+    font-size:13px;
+    line-height:1.8;
+}
+
+footer ul{
+    list-style:none;
+}
+
+footer h3{
+    margin-bottom:15px;
+}
+
+.copyright{
+    margin-top:30px;
+    padding-top:20px;
+    border-top:1px solid #17452a;
+    text-align:center;
+    color:#769080;
+    font-size:12px;
+}
+
+/* TOAST */
+
+.toast{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    background:#14532d;
+    color:white;
+    padding:15px 20px;
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    display:none;
+    z-index:2000;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    .hero-card{
+        width:100%;
+        max-width:400px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+        margin:20px 5%;
+    }
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+    .steps{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .ai-container{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .navbar{
+        padding:12px 4%;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        padding:60px 5%;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .report-container{
+        padding:20px;
+    }
+
+    .steps{
+        grid-template-columns:1fr;
+    }
+
+    .issue-card{
+        grid-template-columns:1fr;
+    }
+
+    .issue-actions{
+        flex-direction:row;
+        justify-content:space-between;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">N</div>
+        <div>
+            <h2>CivicAI Nashik</h2>
+            <span>Smart • Transparent • Community Driven</span>
+        </div>
+    </div>
+
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#report">Report Issue</a>
+        <a href="#issues">Issues</a>
+        <a href="#how">How It Works</a>
+        <a href="#ai">AI Research</a>
+        <a href="#login" class="login-btn">Citizen Login</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>
+            Make Nashik
+            <span>Better Together.</span>
+        </h1>
+
+        <p>
+            An AI-powered crowdsourced platform where citizens can
+            report civic problems, support community issues, track
+            resolutions and help create a smarter Nashik.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#report">
+                <button class="btn btn-primary">
+                    + Report a Civic Issue
+                </button>
+            </a>
+
+            <a href="#issues">
+                <button class="btn btn-outline">
+                    Explore Issues
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="hero-card">
+
+        <h3> Nashik Civic Pulse</h3>
+
+        <div class="mini-stat">
+            <span>Issues Reported</span>
+            <strong id="heroReported">1,284</strong>
+        </div>
+
+        <div class="mini-stat">
+            <span>Resolved</span>
+            <strong>892</strong>
+        </div>
+
+        <div class="mini-stat">
+            <span>Citizens Participating</span>
+            <strong>5,620+</strong>
+        </div>
+
+        <div class="mini-stat">
+            <span>Avg. Resolution</span>
+            <strong>3.8 Days</strong>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATISTICS -->
+
+<section class="section">
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <div class="stat-icon">📢</div>
+            <h3 id="reportedCount">1,284</h3>
+            <p>Total Reports</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <h3>892</h3>
+            <p>Issues Resolved</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <h3>5,620</h3>
+            <p>Active Citizens</p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">⚡</div>
+            <h3>3.8d</h3>
+            <p>Average Resolution</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REPORT ISSUE -->
+
+<section class="section" id="report">
+
+    <div class="section-title">
+        <h2>Report a Civic Issue</h2>
+        <p>Help identify problems in your neighborhood.</p>
+    </div>
+
+    <div class="report-container">
+
+        <form id="issueForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Issue Category</label>
+
+                    <select id="category" required>
+
+                        <option value="">Select category</option>
+                        <option value="Pothole">Road / Pothole</option>
+                        <option value="Garbage">Garbage / Waste</option>
+                        <option value="Streetlight">Street Light</option>
+                        <option value="Water">Water Supply</option>
+                        <option value="Drainage">Drainage / Sewage</option>
+                        <option value="Traffic">Traffic / Parking</option>
+                        <option value="Public Space">Public Space</option>
+                        <option value="Other">Other</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Location</label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="e.g. College Road, Nashik"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>Issue Title</label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Briefly describe the problem"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>Description</label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Explain the issue and its impact..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Upload Photo</label>
+
+                    <div class="file-box">
+
+                        📷 Click to upload evidence
+
+                        <input
+                            type="file"
+                            id="photo"
+                            accept="image/*"
+                        >
+
+                        <img id="preview" class="preview">
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Urgency</label>
+
+                    <select id="urgency">
+
+                        <option value="normal">Normal</option>
+                        <option value="urgent">Urgent</option>
+                        <option value="critical">Critical / Safety Risk</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                style="margin-top:20px"
+                onclick="analyzeIssue()"
+            >
+                🤖 Analyze with AI
+            </button>
+
+
+            <div id="aiResult" class="ai-result">
+
+                <strong>🤖 AI Issue Analysis</strong>
+
+                <p id="aiText" style="margin-top:8px"></p>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn"
+                style="margin-top:15px;background:#14532d;color:white"
+            >
+                Submit Civic Report
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ISSUE DASHBOARD -->
+
+<section class="section dashboard" id="issues">
+
+    <div class="section-title">
+
+        <h2>Community Civic Issues</h2>
+
+        <p>
+            See problems reported by Nashik citizens and support
+            issues that matter to your community.
+        </p>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+        <aside class="filters">
+
+            <h3>Filter Issues</h3>
+
+            <div class="filter-item">
+
+                <label>Search</label>
+
+                <input
+                    id="search"
+                    type="text"
+                    placeholder="Search issues..."
+                    onkeyup="filterIssues()"
+                >
+
+            </div>
+
+
+            <div class="filter-item">
+
+                <label>Category</label>
+
+                <select id="filterCategory" onchange="filterIssues()">
+
+                    <option value="all">All Categories</option>
+                    <option value="Pothole">Road / Pothole</option>
+                    <option value="Garbage">Garbage</option>
+                    <option value="Streetlight">Street Light</option>
+                    <option value="Water">Water</option>
+                    <option value="Drainage">Drainage</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter-item">
+
+                <label>Status</label>
+
+                <select id="filterStatus" onchange="filterIssues()">
+
+                    <option value="all">All Status</option>
+                    <option value="Reported">Reported</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+
+                </select>
+
+            </div>
+
+        </aside>
+
+
+        <div class="issue-list" id="issueList">
+
+
+            <div class="issue-card"
+                 data-category="Pothole"
+                 data-status="In Progress">
+
+                <div>
+
+                    <div class="issue-top">
+
+                        <span class="category">Pothole</span>
+                        <span class="priority high">HIGH PRIORITY</span>
+
+                    </div>
+
+                    <h3>Large pothole near College Road</h3>
+
+                    <p>
+                        Deep pothole causing difficulty for two-wheelers
+                        and creating a safety risk during night hours.
+                    </p>
+
+                    <div class="issue-meta">
+                        📍 College Road, Nashik &nbsp; • &nbsp;
+                        👤 Reported 2 hours ago
+                    </div>
+
+                </div>
+
+                <div class="issue-actions">
+
+                    <button class="vote-btn" onclick="vote(this)">
+                        👍 <span>47</span>
+                    </button>
+
+                    <span class="status inprogress">
+                        In Progress
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue-card"
+                 data-category="Garbage"
+                 data-status="Reported">
+
+                <div>
+
+                    <div class="issue-top">
+
+                        <span class="category">Garbage</span>
+                        <span class="priority medium">MEDIUM</span>
+
+                    </div>
+
+                    <h3>Garbage accumulation near market</h3>
+
+                    <p>
+                        Waste has not been collected for several days,
+                        causing unpleasant smell and hygiene concerns.
+                    </p>
+
+                    <div class="issue-meta">
+                        📍 Panchavati, Nashik &nbsp; • &nbsp;
+                        👤 Reported 5 hours ago
+                    </div>
+
+                </div>
+
+                <div class="issue-actions">
+
+                    <button class="vote-btn" onclick="vote(this)">
+                        👍 <span>32</span>
+                    </button>
+
+                    <span class="status">
+                        Reported
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue-card"
+                 data-category="Streetlight"
+                 data-status="Resolved">
+
+                <div>
+
+                    <div class="issue-top">
+
+                        <span class="category">Street Light</span>
+                        <span class="priority low">LOW</span>
+
+                    </div>
+
+                    <h3>Streetlight not working</h3>
+
+                    <p>
+                        Streetlight near the residential lane has been
+                        repaired after community reporting.
+                    </p>
+
+                    <div class="issue-meta">
+                        📍 Gangapur Road, Nashik &nbsp; • &nbsp;
+                        👤 Reported yesterday
+                    </div>
+
+                </div>
+
+                <div class="issue-actions">
+
+                    <button class="vote-btn" onclick="vote(this)">
+                        👍 <span>18</span>
+                    </button>
+
+                    <span class="status resolved">
+                        Resolved
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="issue-card"
+                 data-category="Drainage"
+                 data-status="In Progress">
+
+                <div>
+
+                    <div class="issue-top">
+
+                        <span class="category">Drainage</span>
+                        <span class="priority high">HIGH PRIORITY</span>
+
+                    </div>
+
+                    <h3>Blocked drainage during rainfall</h3>
+
+                    <p>
+                        Drain is blocked and water accumulates on the
+                        road during heavy rainfall.
+                    </p>
+
+                    <div class="issue-meta">
+                        📍 CIDCO, Nashik &nbsp; • &nbsp;
+                        👤 Reported 1 day ago
+                    </div>
+
+                </div>
+
+                <div class="issue-actions">
+
+                    <button class="vote-btn" onclick="vote(this)">
+                        👍 <span>61</span>
+                    </button>
+
+                    <span class="status inprogress">
+                        In Progress
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="section" id="how">
+
+    <div class="section-title">
+
+        <h2>How CivicAI Works</h2>
+
+        <p>
+            From citizen reporting to transparent resolution.
+        </p>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">1</div>
+
+            <h3>Report</h3>
+
+            <p>
+                Citizens submit a civic issue with description,
+                location and optional photo evidence.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">2</div>
+
+            <h3>AI Analysis</h3>
+
+            <p>
+                AI categorizes the issue and estimates its
+                priority based on severity and community impact.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">3</div>
+
+            <h3>Community Vote</h3>
+
+            <p>
+                Other citizens can support the issue,
+                helping identify problems affecting many people.
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">4</div>
+
+            <h3>Resolution</h3>
+
+            <p>
+                The issue status can be tracked from reported
+                to in-progress and finally resolved.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- AI RESEARCH -->
+
+<section class="section ai-section" id="ai">
+
+    <div class="ai-container">
+
+        <div>
+
+            <h2 style="font-size:35px;margin-bottom:15px">
+                AI for a Smarter Nashik
+            </h2>
+
+            <p>
+                The proposed system uses Artificial Intelligence
+                and crowdsourced data to help prioritize civic
+                problems and provide insights to administrators.
+            </p>
+
+
+            <div class="ai-features">
+
+                <div class="ai-feature">
+                    🧠 <strong>Automatic Classification</strong><br>
+                    Identify whether an issue concerns roads,
+                    waste, water, drainage or other services.
+                </div>
+
+                <div class="ai-feature">
+                    🚨 <strong>Priority Prediction</strong><br>
+                    Estimate urgency using severity, location,
+                    citizen votes and issue type.
+                </div>
+
+                <div class="ai-feature">
+                    📊 <strong>Civic Trend Analysis</strong><br>
+                    Find areas with repeated complaints and
+                    identify recurring infrastructure problems.
+                </div>
+
+                <div class="ai-feature">
+                    🗺️ <strong>Hotspot Detection</strong><br>
+                    Map clusters of civic complaints to support
+                    data-driven planning.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-box">
+
+            <h3 style="margin-bottom:15px">
+                🤖 CivicAI Assistant
+            </h3>
+
+            <div class="chat-message bot">
+                Hello! I'm CivicAI. How can I help improve
+                your neighborhood?
+            </div>
+
+            <div class="chat-message user">
+                There is a large pothole near my college.
+            </div>
+
+            <div class="chat-message bot">
+                This appears to be a road safety issue.
+                I recommend reporting it with a photo and
+                exact location. Based on the information,
+                AI priority may be <b>High</b>.
+            </div>
+
+            <div class="chat-message user">
+                Can I see similar complaints?
+            </div>
+
+            <div class="chat-message bot">
+                Yes. Similar pothole reports can be grouped
+                by location to identify civic hotspots.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>CivicAI Nashik</h3>
+
+            <p>
+                A student project concept for AI-based,
+                crowdsourced civic issue reporting and
+                transparent resolution in Nashik City.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>Platform</h3>
+
+            <ul>
+
+                <li>Report Issue</li>
+                <li>Community Issues</li>
+                <li>AI Analysis</li>
+                <li>Resolution Tracking</li>
+
+            </ul>
+
+        </div>
+
+
+        <div>
+
+            <h3>Nashik Civic Services</h3>
+
+            <ul>
+
+                <li>NMC Grievance System</li>
+                <li>Civic Services</li>
+                <li>Emergency Services</li>
+                <li>Citizen Feedback</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        © 2026 CivicAI Nashik — Academic Project Prototype
+
+    </div>
+
+</footer>
+
+
+<div class="toast" id="toast">
+    Issue successfully submitted!
+</div>
+
+
+<script>
+
+/* -----------------------------------
+   IMAGE PREVIEW
+----------------------------------- */
+
+document.getElementById("photo").addEventListener("change", function(e){
+
+    const file = e.target.files[0];
+
+    if(file){
+
+        const preview = document.getElementById("preview");
+
+        preview.src = URL.createObjectURL(file);
+
+        preview.style.display = "block";
+
+    }
+
+});
+
+
+/* -----------------------------------
+   AI ISSUE ANALYSIS
+----------------------------------- */
+
+function analyzeIssue(){
+
+    const category =
+        document.getElementById("category").value;
+
+    const urgency =
+        document.getElementById("urgency").value;
+
+    const description =
+        document.getElementById("description").value;
+
+    const result =
+        document.getElementById("aiResult");
+
+    const text =
+        document.getElementById("aiText");
+
+
+    if(!category){
+
+        alert("Please select an issue category.");
+
+        return;
+
+    }
+
+
+    let priority = "Medium";
+
+    let reason =
+        "The issue appears to have a moderate civic impact.";
+
+
+    if(
+        urgency === "critical" ||
+        category === "Pothole" ||
+        category === "Drainage"
+    ){
+
+        priority = "High";
+
+        reason =
+        "The issue may affect public safety or essential infrastructure.";
+
+    }
+
+    else if(
+        category === "Streetlight" ||
+        category === "Water"
+    ){
+
+        priority = "Medium";
+
+        reason =
+        "The issue can affect residents and public services.";
+
+    }
+
+    else{
+
+        priority = "Low";
+
+        reason =
+        "The issue should be addressed but appears less urgent.";
+
+    }
+
+
+    if(description.length > 80){
+
+        reason +=
+        " Detailed citizen information can improve AI classification.";
+
+    }
+
+
+    text.innerHTML =
+        `Predicted Priority:
+        <b>${priority}</b><br>
+        ${reason}<br><br>
+        Recommended action:
+        Assign the report to the relevant civic department
+        and monitor community support.`;
+
+
+    result.style.display = "block";
+
+}
+
+
+/* -----------------------------------
+   FORM SUBMISSION
+----------------------------------- */
+
+document.getElementById("issueForm")
+.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+
+    const title =
+        document.getElementById("title").value;
+
+    const category =
+        document.getElementById("category").value;
+
+    const location =
+        document.getElementById("location").value;
+
+
+    if(!title || !category || !location){
+
+        alert("Please complete the required fields.");
+
+        return;
+
+    }
+
+
+    const list =
+        document.getElementById("issueList");
+
+
+    const card =
+        document.createElement("div");
+
+
+    card.className = "issue-card";
+
+    card.setAttribute(
+        "data-category",
+        category
+    );
+
+    card.setAttribute(
+        "data-status",
+        "Reported"
+    );
+
+
+    card.innerHTML = `
+
+        <div>
+
+            <div class="issue-top">
+
+                <span class="category">
+                    ${category}
+                </span>
+
+                <span class="priority medium">
+                    NEW
+                </span>
+
+            </div>
+
+            <h3>${title}</h3>
+
+            <p>
+                Community report submitted by a Nashik citizen.
+            </p>
+
+            <div class="issue-meta">
+
+                📍 ${location}
+                &nbsp; • &nbsp;
+                👤 Just now
+
+            </div>
+
+        </div>
+
+
+        <div class="issue-actions">
+
+            <button class="vote-btn"
+                    onclick="vote(this)">
+
+                👍 <span>1</span>
+
+            </button>
+
+            <span class="status">
+                Reported
+            </span>
+
+        </div>
+
+    `;
+
+
+    list.prepend(card);
+
+
+    document.getElementById("issueForm").reset();
+
+    document.getElementById("aiResult").style.display =
+        "none";
+
+    document.getElementById("preview").style.display =
+        "none";
+
+
+    let count =
+        parseInt(
+            document.getElementById("reportedCount").innerText
+        );
+
+
+    count++;
+
+    document.getElementById("reportedCount").innerText =
+        count.toLocaleString();
+
+
+    document.getElementById("heroReported").innerText =
+        count.toLocaleString();
+
+
+    showToast();
+
+});
+
+
+/* -----------------------------------
+   COMMUNITY VOTING
+----------------------------------- */
+
+function vote(button){
+
+    const span =
+        button.querySelector("span");
+
+    let count =
+        parseInt(span.innerText);
+
+    count++;
+
+    span.innerText = count;
+
+    button.style.background = "#dcfce7";
+
+}
+
+
+/* -----------------------------------
+   FILTER ISSUES
+----------------------------------- */
+
+function filterIssues(){
+
+    const search =
+        document.getElementById("search")
+        .value.toLowerCase();
+
+
+    const category =
+        document.getElementById("filterCategory")
+        .value;
+
+
+    const status =
+        document.getElementById("filterStatus")
+        .value;
+
+
+    const cards =
+        document.querySelectorAll(".issue-card");
+
+
+    cards.forEach(card => {
+
+        const text =
+            card.innerText.toLowerCase();
+
+
+        const cardCategory =
+            card.dataset.category;
+
+
+        const cardStatus =
+            card.dataset.status;
+
+
+        const searchMatch =
+            text.includes(search);
+
+
+        const categoryMatch =
+            category === "all" ||
+            cardCategory === category;
+
+
+        const statusMatch =
+            status === "all" ||
+            cardStatus === status;
+
+
+        if(
+            searchMatch &&
+            categoryMatch &&
+            statusMatch
+        ){
+
+            card.style.display = "grid";
+
+        }
+
+        else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* -----------------------------------
+   TOAST
+----------------------------------- */
+
+function showToast(){
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.style.display = "block";
+
+
+    setTimeout(function(){
+
+        toast.style.display = "none";
+
+    },3000);
+
+}
+
+</script>
+
+</body>
+</html>
